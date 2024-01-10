@@ -1,0 +1,18 @@
+services:
+  user:
+    build: ./user
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://root:root@mongodb:27017
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=root
+      - MONGODB_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - type: bind
+        source: ./data
+        target: /data/db
+    ports:
+      - "27017:27017"
