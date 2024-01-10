@@ -41,7 +41,7 @@ func (handler *UserHandler) Login(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, echo.Map{"status": "Failed", "message": "Password Mismatch"})
 	}
-	token, err := util.CreateJWT(user.Email, user.Tag)
+	token, err := util.CreateJWT(user.Id, user.Email, user.Tag)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, echo.Map{"status": "Failed", "message": "Unable to generate JWT. Please try again"})
 	}

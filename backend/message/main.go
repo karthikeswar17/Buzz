@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/karthikeswar17/buzz/socket-server/route"
-	"github.com/karthikeswar17/buzz/socket-server/util"
+	"github.com/karthikeswar17/buzz/message/route"
+	"github.com/karthikeswar17/buzz/message/util"
 	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -25,7 +25,8 @@ func main() {
 		SigningKey:  []byte(util.SigningKey),
 		TokenLookup: "header:Authorization,cookie:token",
 	}))
+
 	DB := util.ConnectDB()
-	route.SocketRoute(e, DB)
-	e.Logger.Fatal(e.Start(":8001"))
+	route.MessageRoute(e, DB)
+	e.Logger.Fatal(e.Start(":8002"))
 }
