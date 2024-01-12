@@ -18,7 +18,8 @@ export default function Conversation({params}:{ params: { id: string } }) {
   }, [])
   
   return (<div>
-      {messages.map(()=>(<ChatBubble message="asd" user="asd" />))}
+      {messages.map((message:{
+        _id: string, from: string, message: string, conversation_id: string})=>(<ChatBubble message={message.message} user={message.from} />))}
     </div>
   )
 }

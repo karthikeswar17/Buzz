@@ -1,5 +1,5 @@
-export default function ChatBubble(props:{message:string, user:any}){
-    let isCurrent = true
+export default function ChatBubble(props:{message:string, user:string}){
+    let isCurrent = props.user=="0e921028-9a3a-41ba-a90d-f48863a2400a"?true:false
     return (
     <div className={`flex ${isCurrent?"flex-row-reverse":"flex-row"}`}>
             <div className="m-2 min-h-11 min-w-11 flex-shrink-0">
