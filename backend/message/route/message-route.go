@@ -9,5 +9,4 @@ import (
 func MessageRoute(e *echo.Echo, DB *mongo.Client) {
 	var messageHandler handler.MessageHandler = handler.MessageHandler{DB: *DB}
 	e.POST("message", messageHandler.AddMessage)
-	e.GET("conversation/:id/message/list", messageHandler.GetMessages)
 }

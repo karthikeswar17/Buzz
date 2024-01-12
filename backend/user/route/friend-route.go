@@ -13,4 +13,5 @@ func FriendRoute(e *echo.Echo, DB *mongo.Client) {
 	e.GET("friend/request", friendHandler.GetFriendRequests)
 	e.GET("friend/request/:id/accept", friendHandler.AcceptFriendRequest)
 	e.GET("friend/request/:id/decline", friendHandler.DeclineFriendRequest)
+	e.GET("friend/:id/conversation", friendHandler.DeclineFriendRequest)
 }

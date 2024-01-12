@@ -69,6 +69,7 @@ func (handler *UserHandler) Register(c echo.Context) error {
 		Email:        registerRequest.Email,
 		Tag:          registerRequest.Tag,
 		PasswordHash: string(hashedPassword),
+		Friends:      []string{},
 	}
 
 	var ctx context.Context

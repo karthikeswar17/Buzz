@@ -13,6 +13,7 @@ func SetCookies(c echo.Context, kv map[string]string) {
 		cookie.Name = k
 		cookie.Value = v
 		cookie.Expires = time.Now().Add(24 * time.Hour)
+		cookie.Path = "/"
 		c.SetCookie(cookie)
 	}
 

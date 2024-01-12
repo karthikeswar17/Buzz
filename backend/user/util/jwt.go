@@ -34,3 +34,9 @@ func GetEmailAndTagFromJWT(c echo.Context) (string, string) {
 	claims, _ := user.Claims.(jwt.MapClaims)
 	return claims["email"].(string), claims["tag"].(string)
 }
+
+func GetUserIdFromJWT(c echo.Context) string {
+	user, _ := c.Get("user").(*jwt.Token)
+	claims, _ := user.Claims.(jwt.MapClaims)
+	return claims["user-id"].(string)
+}

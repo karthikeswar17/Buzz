@@ -28,5 +28,6 @@ func main() {
 
 	DB := util.ConnectDB()
 	route.MessageRoute(e, DB)
+	route.ConversationRoute(e, DB)
 	e.Logger.Fatal(e.Start(":8002"))
 }
