@@ -22,7 +22,7 @@ export default function Login() {
             "email": email,
             "password": password
         }
-        let response = await axios.post(`${BACKEND_DOMAIN}/login`, payload).then((response) => {
+        let response = await axios.post(`${BACKEND_DOMAIN}/user/v1/login`, payload, {withCredentials:true}).then((response) => {
             let responseBody = response.data
             console.log(responseBody)
             return responseBody

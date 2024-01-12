@@ -1,6 +1,8 @@
 "use client"
 import Button from "@/components/button";
 import TextBox from "@/components/textbox";
+import { BACKEND_DOMAIN } from "@/constants/config";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc"
@@ -13,13 +15,26 @@ export default function Register() {
     }
 
     let [displayName, setDisplayName] = useState("")
-    let [username, setUsername] = useState("")
+    let [userTag, setUserTag] = useState("")
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
 
 
-    const onClickRegister = () => {
-        console.log("Register clicked", displayName, username, email, password)
+    const onClickRegister = async () => {
+            let payload = {
+                "name":displayName,
+                "password":password,
+                "email":email,
+                "tag": userTag
+            }
+            let response = await axios.post(`${BACKEND_DOMAIN}/user/v1/register`, payload, {withCredentials:true}).then((response) => {
+                let responseBody = response.data
+                console.log(responseBody)
+                return responseBody
+            })
+            if(response.status == "Success"){
+                router.push("/login")
+            }
     }
 
 
@@ -32,7 +47,7 @@ export default function Register() {
             </div>
             <div className="flex flex-col h-fit w-fit rounded-lg relative gap-7 bg-white py-8" >
                 <TextBox name="Display Name" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)} />
-                <TextBox name="Username" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
+                <TextBox name="UserTag" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserTag(e.target.value)} />
                 <TextBox name="Email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                 <TextBox name="Password" type="password" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
                 <Button name="Sign Up" width="auto" onClick={onClickRegister} />

@@ -17,7 +17,7 @@ export default function AddFriend() {
     const router = useRouter()
     //sendFriendRequest
     const sendFriendRequest = async () => {
-        let url = `${BACKEND_DOMAIN}/friend/request`
+        let url = `${BACKEND_DOMAIN}/user/v1/friend/request`
         let paylaod = {
             "tag": friendTag
         }
@@ -26,7 +26,7 @@ export default function AddFriend() {
     }
     //get all my friend requests
     const getFriendRequests = async () => {
-        let url = `${BACKEND_DOMAIN}/friend/request`
+        let url = `${BACKEND_DOMAIN}/user/v1/friend/request`
         let responseBody = await axios.get(url, {withCredentials:true}).then((response) => response.data).catch((error) => alert(error.response.data.message))
         setfriendRequests(responseBody)
     }
@@ -35,13 +35,13 @@ export default function AddFriend() {
 
     }
     const acceptFriendRequest = async (id:string) => {
-        let url = `${BACKEND_DOMAIN}/friend/request/${id}/accept`
+        let url = `${BACKEND_DOMAIN}/user/v1/friend/request/${id}/accept`
         await axios.get(url, {withCredentials:true}).then((response) => response.data).catch((error) => alert(error.response.data.message))
         removeFriendRequest(id)
 
     }
     const declineFriendRequest = async (id:string) => {
-        let url = `${BACKEND_DOMAIN}/friend/request/${id}/decline`
+        let url = `${BACKEND_DOMAIN}/user/v1/friend/request/${id}/decline`
         await axios.get(url, {withCredentials:true}).then((response) => response.data).catch((error) => alert(error.response.data.message))
         removeFriendRequest(id)
         

@@ -2,8 +2,22 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { BiMessageRoundedMinus } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import { useRouter } from "next/navigation";
+import { BACKEND_DOMAIN } from "@/constants/config";
+import axios from "axios";
 export default function FriendCard(props:{id:string, tag:string, name:string, email:string}){
     const router = useRouter()
+    const createCoversation=async ()=>{
+        let url = `${BACKEND_DOMAIN}/message/v1/conversation`
+        let responseBody:{_id:string, members:Array<string>} = await axios.post(url, {members:[props.id]}).then((response)=>response.data)
+        return responseBody._id
+
+    }
+    const onConversationClick=async()=>{
+        let conversationId = await createCoversation()
+        router.replace(`/chat/${conversationId}`)
+
+    }
+    
     return (
         <div className={`hover:bg-gray-200`}>
             <div className="flex flex-row">
@@ -15,7 +29,7 @@ export default function FriendCard(props:{id:string, tag:string, name:string, em
                     <span className=" font-light text-sm  text-gray-500">{props.email}</span>
                 </div>
                 <div className="flex ml-auto mr-5 justify-center items-center h-auto w-auto">
-                <button className="hover:bg-gray-200 p-3 rounded-full active:bg-gray-300 hover:text-blue-500" onClick={()=>router.replace(`/chat/${props.id}`)}><BiMessageRoundedMinus className="h-6 w-6"/></button>
+                <button className="hover:bg-gray-200 p-3 rounded-full active:bg-gray-300 hover:text-blue-500" onClick={onConversationClick}><BiMessageRoundedMinus className="h-6 w-6"/></button>
                 <button className="hover:bg-gray-200 p-3 rounded-full active:bg-gray-300 hover:text-red-500"><RxCross2 className="h-6 w-6"/></button>
                     
                 </div>

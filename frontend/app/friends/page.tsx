@@ -9,7 +9,7 @@ import axios from "axios";
 import { BACKEND_DOMAIN } from "@/constants/config";
 
 const getFriends = async () => {
-    let url = `${BACKEND_DOMAIN}/friend/list`
+    let url = `${BACKEND_DOMAIN}/user/v1/friend/list`
     return await axios.get(url).then((response) => response.data)
 
 }
@@ -21,7 +21,7 @@ export default function Friend() {
 
     useEffect(() => {
         const getFriends = async () => {
-            let url = `${BACKEND_DOMAIN}/friend/list`
+            let url = `${BACKEND_DOMAIN}/user/v1/friend/list`
             let params = {
                 "q": friendName
             }
